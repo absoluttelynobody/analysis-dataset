@@ -19,9 +19,9 @@ st.pyplot(fig)
 
 # Visualisasi 2: Rata-Rata Jumlah Penyewaan berdasarkan Tipe Hari
 st.header('Rata-Rata Jumlah Penyewaan Sepeda: Hari Kerja vs Akhir Pekan/Hari Libur')
-average_rentals = day_df.groupby('day_type')['cnt'].mean().reset_index()
+average_rentals = day_df.groupby('dteday')['cnt'].mean().reset_index()
 fig, ax = plt.subplots()
-sns.barplot(x='day_type', y='cnt', data=average_rentals, ax=ax)
+sns.barplot(x='dteday', y='cnt', data=average_rentals, ax=ax)
 ax.set_title('Rata-Rata Jumlah Penyewaan Sepeda')
 ax.set_xlabel('Tipe Hari')
 ax.set_ylabel('Rata-Rata Jumlah Penyewaan')
