@@ -3,15 +3,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Memuat data
-@st.cache
-def load_data():
-    day_data = pd.read_csv('day.csv')
-    day_data['dteday'] = pd.to_datetime(day_data['dteday'])
-    day_data['day_type'] = day_data['workingday'].apply(lambda x: 'Hari Kerja' if x == 1 else 'Akhir Pekan/Hari Libur')
-    return day_data
-
-day_df = load_data()
+day_df = pd.read_csv('day.csv')
 
 # Judul Dashboard
 st.title('Dashboard Analisis Penyewaan Sepeda')
