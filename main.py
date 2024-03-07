@@ -49,7 +49,6 @@ st.pyplot(plt)
 
 
 # memfilter data berdasarkan suhu, kelembapan, atau kecepatan angin
-# contoh:
 temp_slider = st.slider("Filter data berdasarkan Suhu", float(day_df['temp'].min()), float(day_df['temp'].max()))
 filtered_data = day_df[day_df['temp'] <= temp_slider]
 st.write(filtered_data)
