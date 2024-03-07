@@ -1,30 +1,33 @@
 import streamlit as st
 import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
+import seaborn as sns
 
-day_df = pd.read_csv('day.csv')
+# Title
+st.title('Analisis Data Proyek')
 
-# Judul Dashboard
-st.title('Dashboard Analisis Penyewaan Sepeda')
+# Memuat dan Menampilkan Dataset
+data_path = 'path_ke_dataset_anda.csv' # Ganti dengan path yang sesuai
+data = pd.read_csv(data_path)
+st.write(data.head())
 
-# Visualisasi 1: Hubungan Suhu dengan Jumlah Penyewaan
-st.header('Hubungan Suhu dengan Jumlah Penyewaan Sepeda')
-fig, ax = plt.subplots()
-sns.scatterplot(x='temp', y='cnt', data=day_df, ax=ax)
-ax.set_title('Suhu vs. Jumlah Penyewaan')
-ax.set_xlabel('Suhu Normalisasi')
-ax.set_ylabel('Jumlah Penyewaan')
-st.pyplot(fig)
+# Analisis dan Visualisasi
+st.header('Visualisasi Data')
+option = st.selectbox(
+    'Pilih visualisasi yang Anda inginkan:',
+    ('Distribusi Suhu', 'Hubungan Suhu dengan Kelembapan')
+)
 
-# Visualisasi 2: Rata-Rata Jumlah Penyewaan berdasarkan Tipe Hari
-st.header('Rata-Rata Jumlah Penyewaan Sepeda: Hari Kerja vs Akhir Pekan/Hari Libur')
-average_rentals = day_df.groupby('dteday')['cnt'].mean().reset_index()
-fig, ax = plt.subplots()
-sns.barplot(x='dteday', y='cnt', data=average_rentals, ax=ax)
-ax.set_title('Rata-Rata Jumlah Penyewaan Sepeda')
-ax.set_xlabel('Tipe Hari')
-ax.set_ylabel('Rata-Rata Jumlah Penyewaan')
-st.pyplot(fig)
+if option == 'Distribusi Suhu':
+    plt.figure(figsize=(10, 6))
+    sns.histplot(data['temp'], bins=20, kde=True)
+    st.pyplot(plt)
+elif option == 'Hubungan Suhu dengan Kelembapan':
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(x='temp', y='hum', data=data)
+    st.pyplot(plt)
+
+# Menambahkan lebih banyak analisis dan visualisasi sesuai dengan notebook Jupyter Anda.
+
 
 
