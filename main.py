@@ -11,7 +11,7 @@ st.title("Analisis Data Penyewaan Sepeda Harian")
 day_df = pd.read_csv('day_csv')
 
 # Preprocessing Data
-day_df['day_type'] = day_df['workingday'].apply(lambda x: 'Hari Kerja' if x == 1 else 'Akhir Pekan/Hari Libur')
+day_df['day_df'] = day_df['workingday'].apply(lambda x: 'Hari Kerja' if x == 1 else 'Akhir Pekan/Hari Libur')
 day_df['is_workingday'] = day_df['workingday'].apply(lambda x: 'Working Day' if x == 1 else 'Weekend/Holiday')
 
 
@@ -22,8 +22,8 @@ st.write(weather_usage_correlation_day)
 
 # Pengaruh Hari Libur dan Hari Kerja
 st.subheader('2. Pengaruh Hari Libur dan Hari Kerja (Harian)')
-avg_rentals_by_day_type_day = day_df.groupby('day_type')['cnt'].mean().reset_index()
-st.write(avg_rentals_by_day_type_day)
+avg_rentals_by_day_df_day = day_df.groupby('day_df')['cnt'].mean().reset_index()
+st.write(avg_rentals_by_day_df_day)
 
 
 # Visualisasi
@@ -41,9 +41,9 @@ st.pyplot(fig)
 
 # Pertanyaan 2: Hari Kerja vs Akhir Pekan/Hari Libur
 st.subheader('Perbedaan Jumlah Penyewaan: Hari Kerja vs Akhir Pekan/Hari Libur')
-average_rentals_by_day_type = day_df.groupby('is_workingday')['cnt'].mean().reset_index()
+average_rentals_by_day_df = day_df.groupby('is_workingday')['cnt'].mean().reset_index()
 plt.figure(figsize=(8, 6))
-sns.barplot(x='is_workingday', y='cnt', data=average_rentals_by_day_type)
+sns.barplot(x='is_workingday', y='cnt', data=average_rentals_by_day_df)
 plt.title('Rata-Rata Jumlah Penyewaan Sepeda: Hari Kerja vs Akhir Pekan/Hari Libur')
 st.pyplot(plt)
 
@@ -54,7 +54,6 @@ temp_slider = st.slider("Filter data berdasarkan Suhu", float(day_df['temp'].min
 filtered_data = day_df[day_df['temp'] <= temp_slider]
 st.write(filtered_data)
 
-# Catatan: Pastikan Anda memiliki data 'day_df' dengan struktur yang sesuai sebelum menjalankan kode ini di Streamlit.
 
 
 
